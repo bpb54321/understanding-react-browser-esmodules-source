@@ -1,5 +1,5 @@
-import { createRoot } from "./react-dom-client.development.js";
-import * as React from "./react.development.js";
+import { createRoot } from "./production/react-dom-client.production.js";
+import * as React from "./production/react.production.js";
 
 function App() {
   console.log("App called");
