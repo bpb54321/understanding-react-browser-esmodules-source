@@ -42,9 +42,9 @@ function createPortal$1(children, containerInfo, implementation) {
   };
 }
 function getCrossOriginStringAs(as, input) {
-  if ("font" === as) return "";
+  if ("font" === as) {return "";}
   if ("string" === typeof input)
-    return "use-credentials" === input ? input : "";
+    {return "use-credentials" === input ? input : "";}
 }
 function getValueDescriptorExpectingObjectForWarning(thing) {
   return null === thing
@@ -109,14 +109,14 @@ export const createPortal = function (children, container) {
       9 !== container.nodeType &&
       11 !== container.nodeType)
   )
-    throw Error("Target container is not a DOM element.");
+    {throw Error("Target container is not a DOM element.");}
   return createPortal$1(children, container, null, key);
 };
 export const flushSync = function (fn) {
   var previousTransition = ReactSharedInternals.T,
     previousUpdatePriority = Internals.p;
   try {
-    if (((ReactSharedInternals.T = null), (Internals.p = 2), fn)) return fn();
+    if (((ReactSharedInternals.T = null), (Internals.p = 2), fn)) {return fn();}
   } finally {
     (ReactSharedInternals.T = previousTransition),
       (Internals.p = previousUpdatePriority),
@@ -157,10 +157,10 @@ export const preconnect = function (href, options) {
 };
 export const prefetchDNS = function (href) {
   if ("string" !== typeof href || !href)
-    console.error(
+    {console.error(
       "ReactDOM.prefetchDNS(): Expected the `href` argument (first) to be a non-empty string but encountered %s instead.",
       getValueDescriptorExpectingObjectForWarning(href)
-    );
+    );}
   else if (1 < arguments.length) {
     var options = arguments[1];
     "object" === typeof options && options.hasOwnProperty("crossOrigin")
@@ -240,12 +240,12 @@ export const preinitModule = function (href, options) {
         getValueDescriptorExpectingEnumForWarning(options.as) +
         ".");
   if (encountered)
-    console.error(
+    {console.error(
       "ReactDOM.preinitModule(): Expected up to two arguments, a non-empty `href` string and, optionally, an `options` object with a valid `as` property.%s",
       encountered
-    );
+    );}
   else
-    switch (
+    {switch (
       ((encountered =
         options && "string" === typeof options.as ? options.as : "script"),
       encountered)
@@ -259,11 +259,11 @@ export const preinitModule = function (href, options) {
             encountered,
             href
           );
-    }
+    }}
   if ("string" === typeof href)
-    if ("object" === typeof options && null !== options) {
+    {if ("object" === typeof options && null !== options) {
       if (null == options.as || "script" === options.as)
-        (encountered = getCrossOriginStringAs(options.as, options.crossOrigin)),
+        {(encountered = getCrossOriginStringAs(options.as, options.crossOrigin)),
           Internals.d.M(href, {
             crossOrigin: encountered,
             integrity:
@@ -271,8 +271,8 @@ export const preinitModule = function (href, options) {
                 ? options.integrity
                 : void 0,
             nonce: "string" === typeof options.nonce ? options.nonce : void 0,
-          });
-    } else null == options && Internals.d.M(href);
+          });}
+    } else {null == options && Internals.d.M(href);}}
 };
 export const preload = function (href, options) {
   var encountered = "";

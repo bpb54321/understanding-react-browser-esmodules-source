@@ -21,7 +21,7 @@ var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"),
   REACT_LAZY_TYPE = Symbol.for("react.lazy"),
   MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
 function getIteratorFn(maybeIterable) {
-  if (null === maybeIterable || "object" !== typeof maybeIterable) return null;
+  if (null === maybeIterable || "object" !== typeof maybeIterable) {return null;}
   maybeIterable =
     (MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL]) ||
     maybeIterable["@@iterator"];
@@ -50,9 +50,9 @@ Component.prototype.setState = function (partialState, callback) {
     "function" !== typeof partialState &&
     null != partialState
   )
-    throw Error(
+    {throw Error(
       "takes an object of state variables to update or a function which returns an object of state variables."
-    );
+    );}
   this.updater.enqueueSetState(this, partialState, callback, "setState");
 };
 Component.prototype.forceUpdate = function (callback) {
@@ -150,11 +150,11 @@ function resolveThenable(thenable) {
 }
 function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
   var type = typeof children;
-  if ("undefined" === type || "boolean" === type) children = null;
+  if ("undefined" === type || "boolean" === type) {children = null;}
   var invokeCallback = !1;
-  if (null === children) invokeCallback = !0;
+  if (null === children) {invokeCallback = !0;}
   else
-    switch (type) {
+    {switch (type) {
       case "bigint":
       case "string":
       case "number":
@@ -178,9 +178,9 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
               )
             );
         }
-    }
+    }}
   if (invokeCallback)
-    return (
+    {return (
       (callback = callback(children)),
       (invokeCallback =
         "" === nameSoFar ? "." + getElementKey(children, 0) : nameSoFar),
@@ -208,12 +208,12 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
             )),
           array.push(callback)),
       1
-    );
+    );}
   invokeCallback = 0;
   var nextNamePrefix = "" === nameSoFar ? "." : nameSoFar + ":";
   if (isArrayImpl(children))
-    for (var i = 0; i < children.length; i++)
-      (nameSoFar = children[i]),
+    {for (var i = 0; i < children.length; i++)
+      {(nameSoFar = children[i]),
         (type = nextNamePrefix + getElementKey(nameSoFar, i)),
         (invokeCallback += mapIntoArray(
           nameSoFar,
@@ -221,14 +221,14 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
           escapedPrefix,
           type,
           callback
-        ));
+        ));}}
   else if (((i = getIteratorFn(children)), "function" === typeof i))
-    for (
+    {for (
       children = i.call(children), i = 0;
       !(nameSoFar = children.next()).done;
 
     )
-      (nameSoFar = nameSoFar.value),
+      {(nameSoFar = nameSoFar.value),
         (type = nextNamePrefix + getElementKey(nameSoFar, i++)),
         (invokeCallback += mapIntoArray(
           nameSoFar,
@@ -236,16 +236,16 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
           escapedPrefix,
           type,
           callback
-        ));
+        ));}}
   else if ("object" === type) {
     if ("function" === typeof children.then)
-      return mapIntoArray(
+      {return mapIntoArray(
         resolveThenable(children),
         array,
         escapedPrefix,
         nameSoFar,
         callback
-      );
+      );}
     array = String(children);
     throw Error(
       "Objects are not valid as a React child (found: " +
@@ -258,7 +258,7 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
   return invokeCallback;
 }
 function mapChildren(children, func, context) {
-  if (null == children) return children;
+  if (null == children) {return children;}
   var result = [],
     count = 0;
   mapIntoArray(children, result, "", "", function (child) {
@@ -273,16 +273,16 @@ function lazyInitializer(payload) {
     ctor.then(
       function (moduleObject) {
         if (0 === payload._status || -1 === payload._status)
-          (payload._status = 1), (payload._result = moduleObject);
+          {(payload._status = 1), (payload._result = moduleObject);}
       },
       function (error) {
         if (0 === payload._status || -1 === payload._status)
-          (payload._status = 2), (payload._result = error);
+          {(payload._status = 2), (payload._result = error);}
       }
     );
     -1 === payload._status && ((payload._status = 0), (payload._result = ctor));
   }
-  if (1 === payload._status) return payload._result.default;
+  if (1 === payload._status) {return payload._result.default;}
   throw payload._result;
 }
 var reportGlobalError =
@@ -304,7 +304,7 @@ var reportGlobalError =
                 : String(error),
             error: error,
           });
-          if (!window.dispatchEvent(event)) return;
+          if (!window.dispatchEvent(event)) {return;}
         } else if (
           "object" === typeof process &&
           "function" === typeof process.emit
@@ -342,9 +342,9 @@ export const Children = {
   },
   only: function (children) {
     if (!isValidElement(children))
-      throw Error(
+      {throw Error(
         "React.Children.only expected to receive a single React element child."
-      );
+      );}
     return children;
   },
 };
@@ -367,27 +367,27 @@ export const cache = function (fn) {
 };
 export const cloneElement = function (element, config, children) {
   if (null === element || void 0 === element)
-    throw Error(
+    {throw Error(
       "The argument must be a React element, but you passed " + element + "."
-    );
+    );}
   var props = assign({}, element.props),
     key = element.key,
     owner = void 0;
   if (null != config)
-    for (propName in (void 0 !== config.ref && (owner = void 0),
+    {for (propName in (void 0 !== config.ref && (owner = void 0),
     void 0 !== config.key && (key = "" + config.key),
     config))
-      !hasOwnProperty.call(config, propName) ||
+      {!hasOwnProperty.call(config, propName) ||
         "key" === propName ||
         "__self" === propName ||
         "__source" === propName ||
         ("ref" === propName && void 0 === config.ref) ||
-        (props[propName] = config[propName]);
+        (props[propName] = config[propName]);}}
   var propName = arguments.length - 2;
-  if (1 === propName) props.children = children;
+  if (1 === propName) {props.children = children;}
   else if (1 < propName) {
     for (var childArray = Array(propName), i = 0; i < propName; i++)
-      childArray[i] = arguments[i + 2];
+      {childArray[i] = arguments[i + 2];}
     props.children = childArray;
   }
   return ReactElement(element.type, key, void 0, void 0, owner, props);
@@ -413,23 +413,23 @@ export const createElement = function (type, config, children) {
     props = {},
     key = null;
   if (null != config)
-    for (propName in (void 0 !== config.key && (key = "" + config.key), config))
-      hasOwnProperty.call(config, propName) &&
+    {for (propName in (void 0 !== config.key && (key = "" + config.key), config))
+      {hasOwnProperty.call(config, propName) &&
         "key" !== propName &&
         "__self" !== propName &&
         "__source" !== propName &&
-        (props[propName] = config[propName]);
+        (props[propName] = config[propName]);}}
   var childrenLength = arguments.length - 2;
-  if (1 === childrenLength) props.children = children;
+  if (1 === childrenLength) {props.children = children;}
   else if (1 < childrenLength) {
     for (var childArray = Array(childrenLength), i = 0; i < childrenLength; i++)
-      childArray[i] = arguments[i + 2];
+      {childArray[i] = arguments[i + 2];}
     props.children = childArray;
   }
   if (type && type.defaultProps)
-    for (propName in ((childrenLength = type.defaultProps), childrenLength))
-      void 0 === props[propName] &&
-        (props[propName] = childrenLength[propName]);
+    {for (propName in ((childrenLength = type.defaultProps), childrenLength))
+      {void 0 === props[propName] &&
+        (props[propName] = childrenLength[propName]);}}
   return ReactElement(type, key, void 0, void 0, null, props);
 };
 export const createRef = function () {
@@ -493,9 +493,9 @@ export const useDeferredValue = function (value, initialValue) {
 export const useEffect = function (create, createDeps, update) {
   var dispatcher = ReactSharedInternals.H;
   if ("function" === typeof update)
-    throw Error(
+    {throw Error(
       "useEffect CRUD overload is not enabled in this build of React."
-    );
+    );}
   return dispatcher.useEffect(create, createDeps);
 };
 export const useId = function () {

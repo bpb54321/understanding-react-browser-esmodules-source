@@ -21,7 +21,7 @@ function defineDeprecationWarning(methodName, info) {
   });
 }
 function getIteratorFn(maybeIterable) {
-  if (null === maybeIterable || "object" !== typeof maybeIterable) return null;
+  if (null === maybeIterable || "object" !== typeof maybeIterable) {return null;}
   maybeIterable =
     (MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL]) ||
     maybeIterable["@@iterator"];
@@ -82,12 +82,12 @@ function checkKeyStringCoercion(value) {
   }
 }
 function getComponentNameFromType(type) {
-  if (null == type) return null;
+  if (null == type) {return null;}
   if ("function" === typeof type)
-    return type.$$typeof === REACT_CLIENT_REFERENCE
+    {return type.$$typeof === REACT_CLIENT_REFERENCE
       ? null
-      : type.displayName || type.name || null;
-  if ("string" === typeof type) return type;
+      : type.displayName || type.name || null;}
+  if ("string" === typeof type) {return type;}
   switch (type) {
     case REACT_FRAGMENT_TYPE:
       return "Fragment";
@@ -103,7 +103,7 @@ function getComponentNameFromType(type) {
       return "Activity";
   }
   if ("object" === typeof type)
-    switch (
+    {switch (
       ("number" === typeof type.tag &&
         console.error(
           "Received an unexpected object in getComponentNameFromType(). This is likely a bug in React. Please file an issue."
@@ -136,17 +136,17 @@ function getComponentNameFromType(type) {
         try {
           return getComponentNameFromType(type(innerType));
         } catch (x) {}
-    }
+    }}
   return null;
 }
 function getTaskName(type) {
-  if (type === REACT_FRAGMENT_TYPE) return "<>";
+  if (type === REACT_FRAGMENT_TYPE) {return "<>";}
   if (
     "object" === typeof type &&
     null !== type &&
     type.$$typeof === REACT_LAZY_TYPE
   )
-    return "<...>";
+    {return "<...>";}
   try {
     var name = getComponentNameFromType(type);
     return name ? "<" + name + ">" : "<...>";
@@ -164,7 +164,7 @@ function UnknownOwner() {
 function hasValidKey(config) {
   if (hasOwnProperty.call(config, "key")) {
     var getter = Object.getOwnPropertyDescriptor(config, "key").get;
-    if (getter && getter.isReactWarning) return !1;
+    if (getter && getter.isReactWarning) {return !1;}
   }
   return void 0 !== config.key;
 }
@@ -315,11 +315,11 @@ function resolveThenable(thenable) {
 }
 function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
   var type = typeof children;
-  if ("undefined" === type || "boolean" === type) children = null;
+  if ("undefined" === type || "boolean" === type) {children = null;}
   var invokeCallback = !1;
-  if (null === children) invokeCallback = !0;
+  if (null === children) {invokeCallback = !0;}
   else
-    switch (type) {
+    {switch (type) {
       case "bigint":
       case "string":
       case "number":
@@ -343,7 +343,7 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
               )
             );
         }
-    }
+    }}
   if (invokeCallback) {
     invokeCallback = children;
     callback = callback(invokeCallback);
@@ -388,8 +388,8 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
   invokeCallback = 0;
   childKey = "" === nameSoFar ? "." : nameSoFar + ":";
   if (isArrayImpl(children))
-    for (var i = 0; i < children.length; i++)
-      (nameSoFar = children[i]),
+    {for (var i = 0; i < children.length; i++)
+      {(nameSoFar = children[i]),
         (type = childKey + getElementKey(nameSoFar, i)),
         (invokeCallback += mapIntoArray(
           nameSoFar,
@@ -397,9 +397,9 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
           escapedPrefix,
           type,
           callback
-        ));
+        ));}}
   else if (((i = getIteratorFn(children)), "function" === typeof i))
-    for (
+    {for (
       i === children.entries &&
         (didWarnAboutMaps ||
           console.warn(
@@ -411,7 +411,7 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
       !(nameSoFar = children.next()).done;
 
     )
-      (nameSoFar = nameSoFar.value),
+      {(nameSoFar = nameSoFar.value),
         (type = childKey + getElementKey(nameSoFar, i++)),
         (invokeCallback += mapIntoArray(
           nameSoFar,
@@ -419,16 +419,16 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
           escapedPrefix,
           type,
           callback
-        ));
+        ));}}
   else if ("object" === type) {
     if ("function" === typeof children.then)
-      return mapIntoArray(
+      {return mapIntoArray(
         resolveThenable(children),
         array,
         escapedPrefix,
         nameSoFar,
         callback
-      );
+      );}
     array = String(children);
     throw Error(
       "Objects are not valid as a React child (found: " +
@@ -441,7 +441,7 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
   return invokeCallback;
 }
 function mapChildren(children, func, context) {
-  if (null == children) return children;
+  if (null == children) {return children;}
   var result = [],
     count = 0;
   mapIntoArray(children, result, "", "", function (child) {
@@ -456,17 +456,17 @@ function lazyInitializer(payload) {
     ctor.then(
       function (moduleObject) {
         if (0 === payload._status || -1 === payload._status)
-          (payload._status = 1), (payload._result = moduleObject);
+          {(payload._status = 1), (payload._result = moduleObject);}
       },
       function (error) {
         if (0 === payload._status || -1 === payload._status)
-          (payload._status = 2), (payload._result = error);
+          {(payload._status = 2), (payload._result = error);}
       }
     );
     -1 === payload._status && ((payload._status = 0), (payload._result = ctor));
   }
   if (1 === payload._status)
-    return (
+    {return (
       (ctor = payload._result),
       void 0 === ctor &&
         console.error(
@@ -479,7 +479,7 @@ function lazyInitializer(payload) {
           ctor
         ),
       ctor.default
-    );
+    );}
   throw payload._result;
 }
 function resolveDispatcher() {
@@ -493,7 +493,7 @@ function resolveDispatcher() {
 function noop() {}
 function enqueueTask(task) {
   if (null === enqueueTaskImpl)
-    try {
+    {try {
       var requireString = ("require" + Math.random()).slice(0, 7);
       enqueueTaskImpl = (module && module[requireString]).call(
         module,
@@ -511,7 +511,7 @@ function enqueueTask(task) {
         channel.port1.onmessage = callback;
         channel.port2.postMessage(void 0);
       };
-    }
+    }}
   return enqueueTaskImpl(task);
 }
 function aggregateErrors(errors) {
@@ -529,8 +529,8 @@ function popActScope(prevActQueue, prevActScopeDepth) {
 function recursivelyFlushAsyncActWork(returnValue, resolve, reject) {
   var queue = ReactSharedInternals.actQueue;
   if (null !== queue)
-    if (0 !== queue.length)
-      try {
+    {if (0 !== queue.length)
+      {try {
         flushActQueue(queue);
         enqueueTask(function () {
           return recursivelyFlushAsyncActWork(returnValue, resolve, reject);
@@ -538,8 +538,8 @@ function recursivelyFlushAsyncActWork(returnValue, resolve, reject) {
         return;
       } catch (error) {
         ReactSharedInternals.thrownErrors.push(error);
-      }
-    else ReactSharedInternals.actQueue = null;
+      }}
+    else {ReactSharedInternals.actQueue = null;}}
   0 < ReactSharedInternals.thrownErrors.length
     ? ((queue = aggregateErrors(ReactSharedInternals.thrownErrors)),
       (ReactSharedInternals.thrownErrors.length = 0),
@@ -563,7 +563,7 @@ function flushActQueue(queue) {
               return;
             }
             callback = continuation;
-          } else break;
+          } else {break;}
         } while (1);
       }
       queue.length = 0;
@@ -615,9 +615,9 @@ Component.prototype.setState = function (partialState, callback) {
     "function" !== typeof partialState &&
     null != partialState
   )
-    throw Error(
+    {throw Error(
       "takes an object of state variables to update or a function which returns an object of state variables."
-    );
+    );}
   this.updater.enqueueSetState(this, partialState, callback, "setState");
 };
 Component.prototype.forceUpdate = function (callback) {
@@ -635,8 +635,8 @@ var deprecatedAPIs = {
   },
   fnName;
 for (fnName in deprecatedAPIs)
-  deprecatedAPIs.hasOwnProperty(fnName) &&
-    defineDeprecationWarning(fnName, deprecatedAPIs[fnName]);
+  {deprecatedAPIs.hasOwnProperty(fnName) &&
+    defineDeprecationWarning(fnName, deprecatedAPIs[fnName]);}
 ComponentDummy.prototype = Component.prototype;
 deprecatedAPIs = PureComponent.prototype = new ComponentDummy();
 deprecatedAPIs.constructor = PureComponent;
@@ -697,7 +697,7 @@ var didWarnAboutMaps = !1,
                   : String(error),
               error: error,
             });
-            if (!window.dispatchEvent(event)) return;
+            if (!window.dispatchEvent(event)) {return;}
           } else if (
             "object" === typeof process &&
             "function" === typeof process.emit
@@ -753,9 +753,9 @@ export const Children = {
   },
   only: function (children) {
     if (!isValidElement(children))
-      throw Error(
+      {throw Error(
         "React.Children.only expected to receive a single React element child."
-      );
+      );}
     return children;
   },
 };
@@ -779,12 +779,12 @@ export const act = function (callback) {
     ReactSharedInternals.thrownErrors.push(error);
   }
   if (0 < ReactSharedInternals.thrownErrors.length)
-    throw (
+    {throw (
       (popActScope(prevActQueue, prevActScopeDepth),
       (callback = aggregateErrors(ReactSharedInternals.thrownErrors)),
       (ReactSharedInternals.thrownErrors.length = 0),
       callback)
-    );
+    );}
   if (
     null !== result &&
     "object" === typeof result &&
@@ -825,7 +825,7 @@ export const act = function (callback) {
                 ReactSharedInternals.thrownErrors.length = 0;
                 reject(_thrownError);
               }
-            } else resolve(returnValue);
+            } else {resolve(returnValue);}
           },
           function (error) {
             popActScope(prevActQueue, prevActScopeDepth);
@@ -854,11 +854,11 @@ export const act = function (callback) {
       }),
     (ReactSharedInternals.actQueue = null));
   if (0 < ReactSharedInternals.thrownErrors.length)
-    throw (
+    {throw (
       ((callback = aggregateErrors(ReactSharedInternals.thrownErrors)),
       (ReactSharedInternals.thrownErrors.length = 0),
       callback)
-    );
+    );}
   return {
     then: function (resolve, reject) {
       didAwaitActCall = !0;
@@ -886,9 +886,9 @@ export const captureOwnerStack = function () {
 };
 export const cloneElement = function (element, config, children) {
   if (null === element || void 0 === element)
-    throw Error(
+    {throw Error(
       "The argument must be a React element, but you passed " + element + "."
-    );
+    );}
   var props = assign({}, element.props),
     key = element.key,
     owner = element._owner;
@@ -912,19 +912,19 @@ export const cloneElement = function (element, config, children) {
     hasValidKey(config) &&
       (checkKeyStringCoercion(config.key), (key = "" + config.key));
     for (propName in config)
-      !hasOwnProperty.call(config, propName) ||
+      {!hasOwnProperty.call(config, propName) ||
         "key" === propName ||
         "__self" === propName ||
         "__source" === propName ||
         ("ref" === propName && void 0 === config.ref) ||
-        (props[propName] = config[propName]);
+        (props[propName] = config[propName]);}
   }
   var propName = arguments.length - 2;
-  if (1 === propName) props.children = children;
+  if (1 === propName) {props.children = children;}
   else if (1 < propName) {
     JSCompiler_inline_result = Array(propName);
     for (var i = 0; i < propName; i++)
-      JSCompiler_inline_result[i] = arguments[i + 2];
+      {JSCompiler_inline_result[i] = arguments[i + 2];}
     props.children = JSCompiler_inline_result;
   }
   props = ReactElement(
@@ -938,8 +938,8 @@ export const cloneElement = function (element, config, children) {
     element._debugTask
   );
   for (key = 2; key < arguments.length; key++)
-    (owner = arguments[key]),
-      isValidElement(owner) && owner._store && (owner._store.validated = 1);
+    {(owner = arguments[key]),
+      isValidElement(owner) && owner._store && (owner._store.validated = 1);}
   return props;
 };
 export const createContext = function (defaultValue) {
@@ -968,7 +968,7 @@ export const createElement = function (type, config, children) {
   i = {};
   node = null;
   if (null != config)
-    for (propName in (didWarnAboutOldJSXRuntime ||
+    {for (propName in (didWarnAboutOldJSXRuntime ||
       !("__self" in config) ||
       "key" in config ||
       ((didWarnAboutOldJSXRuntime = !0),
@@ -978,26 +978,26 @@ export const createElement = function (type, config, children) {
     hasValidKey(config) &&
       (checkKeyStringCoercion(config.key), (node = "" + config.key)),
     config))
-      hasOwnProperty.call(config, propName) &&
+      {hasOwnProperty.call(config, propName) &&
         "key" !== propName &&
         "__self" !== propName &&
         "__source" !== propName &&
-        (i[propName] = config[propName]);
+        (i[propName] = config[propName]);}}
   var childrenLength = arguments.length - 2;
-  if (1 === childrenLength) i.children = children;
+  if (1 === childrenLength) {i.children = children;}
   else if (1 < childrenLength) {
     for (
       var childArray = Array(childrenLength), _i = 0;
       _i < childrenLength;
       _i++
     )
-      childArray[_i] = arguments[_i + 2];
+      {childArray[_i] = arguments[_i + 2];}
     Object.freeze && Object.freeze(childArray);
     i.children = childArray;
   }
   if (type && type.defaultProps)
-    for (propName in ((childrenLength = type.defaultProps), childrenLength))
-      void 0 === i[propName] && (i[propName] = childrenLength[propName]);
+    {for (propName in ((childrenLength = type.defaultProps), childrenLength))
+      {void 0 === i[propName] && (i[propName] = childrenLength[propName]);}}
   node &&
     defineKeyPropWarningGetter(
       i,
@@ -1159,9 +1159,9 @@ export const useEffect = function (create, createDeps, update) {
     );
   var dispatcher = resolveDispatcher();
   if ("function" === typeof update)
-    throw Error(
+    {throw Error(
       "useEffect CRUD overload is not enabled in this build of React."
-    );
+    );}
   return dispatcher.useEffect(create, createDeps);
 };
 export const useId = function () {

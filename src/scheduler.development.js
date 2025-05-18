@@ -52,10 +52,10 @@ function performWorkUntilDeadline() {
                 }
                 currentTask === peek(taskQueue) && pop(taskQueue);
                 advanceTimers(currentTime);
-              } else pop(taskQueue);
+              } else {pop(taskQueue);}
               currentTask = peek(taskQueue);
             }
-            if (null !== currentTask) hasMoreWork = !0;
+            if (null !== currentTask) {hasMoreWork = !0;}
             else {
               var firstTimer = peek(timerQueue);
               null !== firstTimer &&
@@ -88,15 +88,15 @@ function push(heap, node) {
     var parentIndex = (index - 1) >>> 1,
       parent = heap[parentIndex];
     if (0 < compare(parent, node))
-      (heap[parentIndex] = node), (heap[index] = parent), (index = parentIndex);
-    else break a;
+      {(heap[parentIndex] = node), (heap[index] = parent), (index = parentIndex);}
+    else {break a;}
   }
 }
 function peek(heap) {
   return 0 === heap.length ? null : heap[0];
 }
 function pop(heap) {
-  if (0 === heap.length) return null;
+  if (0 === heap.length) {return null;}
   var first = heap[0],
     last = heap.pop();
   if (last !== first) {
@@ -111,16 +111,16 @@ function pop(heap) {
         rightIndex = leftIndex + 1,
         right = heap[rightIndex];
       if (0 > compare(left, last))
-        rightIndex < length && 0 > compare(right, left)
+        {rightIndex < length && 0 > compare(right, left)
           ? ((heap[index] = right),
             (heap[rightIndex] = last),
             (index = rightIndex))
           : ((heap[index] = left),
             (heap[leftIndex] = last),
-            (index = leftIndex));
+            (index = leftIndex));}
       else if (rightIndex < length && 0 > compare(right, last))
-        (heap[index] = right), (heap[rightIndex] = last), (index = rightIndex);
-      else break a;
+        {(heap[index] = right), (heap[rightIndex] = last), (index = rightIndex);}
+      else {break a;}
     }
   }
   return first;
@@ -131,12 +131,12 @@ function compare(a, b) {
 }
 function advanceTimers(currentTime) {
   for (var timer = peek(timerQueue); null !== timer; ) {
-    if (null === timer.callback) pop(timerQueue);
+    if (null === timer.callback) {pop(timerQueue);}
     else if (timer.startTime <= currentTime)
-      pop(timerQueue),
+      {pop(timerQueue),
         (timer.sortIndex = timer.expirationTime),
-        push(taskQueue, timer);
-    else break;
+        push(taskQueue, timer);}
+    else {break;}
     timer = peek(timerQueue);
   }
 }
@@ -144,15 +144,15 @@ function handleTimeout(currentTime) {
   isHostTimeoutScheduled = !1;
   advanceTimers(currentTime);
   if (!isHostCallbackScheduled)
-    if (null !== peek(taskQueue))
-      (isHostCallbackScheduled = !0),
+    {if (null !== peek(taskQueue))
+      {(isHostCallbackScheduled = !0),
         isMessageLoopRunning ||
-          ((isMessageLoopRunning = !0), schedulePerformWorkUntilDeadline());
+          ((isMessageLoopRunning = !0), schedulePerformWorkUntilDeadline());}
     else {
       var firstTimer = peek(timerQueue);
       null !== firstTimer &&
         requestHostTimeout(handleTimeout, firstTimer.startTime - currentTime);
-    }
+    }}
 }
 function shouldYieldToHost() {
   return needsPaint ? !0 : unstable_now() - startTime < frameInterval ? !1 : !0;
@@ -196,9 +196,9 @@ var taskQueue = [],
   frameInterval = 5,
   startTime = -1;
 if ("function" === typeof localSetImmediate)
-  var schedulePerformWorkUntilDeadline = function () {
+  {var schedulePerformWorkUntilDeadline = function () {
     localSetImmediate(performWorkUntilDeadline);
-  };
+  };}
 else if ("undefined" !== typeof MessageChannel) {
   var channel = new MessageChannel(),
     port = channel.port2;
@@ -207,9 +207,9 @@ else if ("undefined" !== typeof MessageChannel) {
     port.postMessage(null);
   };
 } else
-  schedulePerformWorkUntilDeadline = function () {
+  {schedulePerformWorkUntilDeadline = function () {
     localSetTimeout(performWorkUntilDeadline, 0);
-  };
+  };}
 export const unstable_IdlePriority = 5;
 export const unstable_ImmediatePriority = 1;
 export const unstable_LowPriority = 4;
