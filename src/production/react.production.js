@@ -21,7 +21,9 @@ var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"),
   REACT_LAZY_TYPE = Symbol.for("react.lazy"),
   MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
 function getIteratorFn(maybeIterable) {
-  if (null === maybeIterable || "object" !== typeof maybeIterable) {return null;}
+  if (null === maybeIterable || "object" !== typeof maybeIterable) {
+    return null;
+  }
   maybeIterable =
     (MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL]) ||
     maybeIterable["@@iterator"];
@@ -49,10 +51,11 @@ Component.prototype.setState = function (partialState, callback) {
     "object" !== typeof partialState &&
     "function" !== typeof partialState &&
     null != partialState
-  )
-    {throw Error(
-      "takes an object of state variables to update or a function which returns an object of state variables."
-    );}
+  ) {
+    throw Error(
+      "takes an object of state variables to update or a function which returns an object of state variables.",
+    );
+  }
   this.updater.enqueueSetState(this, partialState, callback, "setState");
 };
 Component.prototype.forceUpdate = function (callback) {
@@ -90,7 +93,7 @@ function cloneAndReplaceKey(oldElement, newKey) {
     void 0,
     void 0,
     void 0,
-    oldElement.props
+    oldElement.props,
   );
 }
 export function isValidElement(object) {
@@ -136,7 +139,7 @@ function resolveThenable(thenable) {
               function (error) {
                 "pending" === thenable.status &&
                   ((thenable.status = "rejected"), (thenable.reason = error));
-              }
+              },
             )),
         thenable.status)
       ) {
@@ -150,11 +153,14 @@ function resolveThenable(thenable) {
 }
 function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
   var type = typeof children;
-  if ("undefined" === type || "boolean" === type) {children = null;}
+  if ("undefined" === type || "boolean" === type) {
+    children = null;
+  }
   var invokeCallback = !1;
-  if (null === children) {invokeCallback = !0;}
-  else
-    {switch (type) {
+  if (null === children) {
+    invokeCallback = !0;
+  } else {
+    switch (type) {
       case "bigint":
       case "string":
       case "number":
@@ -174,13 +180,14 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
                 array,
                 escapedPrefix,
                 nameSoFar,
-                callback
+                callback,
               )
             );
         }
-    }}
-  if (invokeCallback)
-    {return (
+    }
+  }
+  if (invokeCallback) {
+    return (
       (callback = callback(children)),
       (invokeCallback =
         "" === nameSoFar ? "." + getElementKey(children, 0) : nameSoFar),
@@ -202,63 +209,69 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
                   ? ""
                   : ("" + callback.key).replace(
                       userProvidedKeyEscapeRegex,
-                      "$&/"
+                      "$&/",
                     ) + "/") +
-                invokeCallback
+                invokeCallback,
             )),
           array.push(callback)),
       1
-    );}
+    );
+  }
   invokeCallback = 0;
   var nextNamePrefix = "" === nameSoFar ? "." : nameSoFar + ":";
-  if (isArrayImpl(children))
-    {for (var i = 0; i < children.length; i++)
-      {(nameSoFar = children[i]),
+  if (isArrayImpl(children)) {
+    for (var i = 0; i < children.length; i++) {
+      (nameSoFar = children[i]),
         (type = nextNamePrefix + getElementKey(nameSoFar, i)),
         (invokeCallback += mapIntoArray(
           nameSoFar,
           array,
           escapedPrefix,
           type,
-          callback
-        ));}}
-  else if (((i = getIteratorFn(children)), "function" === typeof i))
-    {for (
+          callback,
+        ));
+    }
+  } else if (((i = getIteratorFn(children)), "function" === typeof i)) {
+    for (
       children = i.call(children), i = 0;
       !(nameSoFar = children.next()).done;
 
-    )
-      {(nameSoFar = nameSoFar.value),
+    ) {
+      (nameSoFar = nameSoFar.value),
         (type = nextNamePrefix + getElementKey(nameSoFar, i++)),
         (invokeCallback += mapIntoArray(
           nameSoFar,
           array,
           escapedPrefix,
           type,
-          callback
-        ));}}
-  else if ("object" === type) {
-    if ("function" === typeof children.then)
-      {return mapIntoArray(
+          callback,
+        ));
+    }
+  } else if ("object" === type) {
+    if ("function" === typeof children.then) {
+      return mapIntoArray(
         resolveThenable(children),
         array,
         escapedPrefix,
         nameSoFar,
-        callback
-      );}
+        callback,
+      );
+    }
     array = String(children);
     throw Error(
       "Objects are not valid as a React child (found: " +
         ("[object Object]" === array
           ? "object with keys {" + Object.keys(children).join(", ") + "}"
           : array) +
-        "). If you meant to render a collection of children, use an array instead."
+        "). If you meant to render a collection of children, use an array instead.",
     );
   }
   return invokeCallback;
 }
 function mapChildren(children, func, context) {
-  if (null == children) {return children;}
+  if (null == children) {
+    return children;
+  }
   var result = [],
     count = 0;
   mapIntoArray(children, result, "", "", function (child) {
@@ -272,17 +285,21 @@ function lazyInitializer(payload) {
     ctor = ctor();
     ctor.then(
       function (moduleObject) {
-        if (0 === payload._status || -1 === payload._status)
-          {(payload._status = 1), (payload._result = moduleObject);}
+        if (0 === payload._status || -1 === payload._status) {
+          (payload._status = 1), (payload._result = moduleObject);
+        }
       },
       function (error) {
-        if (0 === payload._status || -1 === payload._status)
-          {(payload._status = 2), (payload._result = error);}
-      }
+        if (0 === payload._status || -1 === payload._status) {
+          (payload._status = 2), (payload._result = error);
+        }
+      },
     );
     -1 === payload._status && ((payload._status = 0), (payload._result = ctor));
   }
-  if (1 === payload._status) {return payload._result.default;}
+  if (1 === payload._status) {
+    return payload._result.default;
+  }
   throw payload._result;
 }
 var reportGlobalError =
@@ -304,7 +321,9 @@ var reportGlobalError =
                 : String(error),
             error: error,
           });
-          if (!window.dispatchEvent(event)) {return;}
+          if (!window.dispatchEvent(event)) {
+            return;
+          }
         } else if (
           "object" === typeof process &&
           "function" === typeof process.emit
@@ -323,7 +342,7 @@ export const Children = {
       function () {
         forEachFunc.apply(this, arguments);
       },
-      forEachContext
+      forEachContext,
     );
   },
   count: function (children) {
@@ -341,10 +360,11 @@ export const Children = {
     );
   },
   only: function (children) {
-    if (!isValidElement(children))
-      {throw Error(
-        "React.Children.only expected to receive a single React element child."
-      );}
+    if (!isValidElement(children)) {
+      throw Error(
+        "React.Children.only expected to receive a single React element child.",
+      );
+    }
     return children;
   },
 };
@@ -366,28 +386,33 @@ export const cache = function (fn) {
   };
 };
 export const cloneElement = function (element, config, children) {
-  if (null === element || void 0 === element)
-    {throw Error(
-      "The argument must be a React element, but you passed " + element + "."
-    );}
+  if (null === element || void 0 === element) {
+    throw Error(
+      "The argument must be a React element, but you passed " + element + ".",
+    );
+  }
   var props = assign({}, element.props),
     key = element.key,
     owner = void 0;
-  if (null != config)
-    {for (propName in (void 0 !== config.ref && (owner = void 0),
+  if (null != config) {
+    for (propName in (void 0 !== config.ref && (owner = void 0),
     void 0 !== config.key && (key = "" + config.key),
-    config))
-      {!hasOwnProperty.call(config, propName) ||
+    config)) {
+      !hasOwnProperty.call(config, propName) ||
         "key" === propName ||
         "__self" === propName ||
         "__source" === propName ||
         ("ref" === propName && void 0 === config.ref) ||
-        (props[propName] = config[propName]);}}
+        (props[propName] = config[propName]);
+    }
+  }
   var propName = arguments.length - 2;
-  if (1 === propName) {props.children = children;}
-  else if (1 < propName) {
-    for (var childArray = Array(propName), i = 0; i < propName; i++)
-      {childArray[i] = arguments[i + 2];}
+  if (1 === propName) {
+    props.children = children;
+  } else if (1 < propName) {
+    for (var childArray = Array(propName), i = 0; i < propName; i++) {
+      childArray[i] = arguments[i + 2];
+    }
     props.children = childArray;
   }
   return ReactElement(element.type, key, void 0, void 0, owner, props);
@@ -412,24 +437,35 @@ export const createElement = function (type, config, children) {
   var propName,
     props = {},
     key = null;
-  if (null != config)
-    {for (propName in (void 0 !== config.key && (key = "" + config.key), config))
-      {hasOwnProperty.call(config, propName) &&
+  if (null != config) {
+    for (propName in (void 0 !== config.key && (key = "" + config.key),
+    config)) {
+      hasOwnProperty.call(config, propName) &&
         "key" !== propName &&
         "__self" !== propName &&
         "__source" !== propName &&
-        (props[propName] = config[propName]);}}
+        (props[propName] = config[propName]);
+    }
+  }
   var childrenLength = arguments.length - 2;
-  if (1 === childrenLength) {props.children = children;}
-  else if (1 < childrenLength) {
-    for (var childArray = Array(childrenLength), i = 0; i < childrenLength; i++)
-      {childArray[i] = arguments[i + 2];}
+  if (1 === childrenLength) {
+    props.children = children;
+  } else if (1 < childrenLength) {
+    for (
+      var childArray = Array(childrenLength), i = 0;
+      i < childrenLength;
+      i++
+    ) {
+      childArray[i] = arguments[i + 2];
+    }
     props.children = childArray;
   }
-  if (type && type.defaultProps)
-    {for (propName in ((childrenLength = type.defaultProps), childrenLength))
-      {void 0 === props[propName] &&
-        (props[propName] = childrenLength[propName]);}}
+  if (type && type.defaultProps) {
+    for (propName in ((childrenLength = type.defaultProps), childrenLength)) {
+      void 0 === props[propName] &&
+        (props[propName] = childrenLength[propName]);
+    }
+  }
   return ReactElement(type, key, void 0, void 0, null, props);
 };
 export const createRef = function () {
@@ -492,10 +528,11 @@ export const useDeferredValue = function (value, initialValue) {
 };
 export const useEffect = function (create, createDeps, update) {
   var dispatcher = ReactSharedInternals.H;
-  if ("function" === typeof update)
-    {throw Error(
-      "useEffect CRUD overload is not enabled in this build of React."
-    );}
+  if ("function" === typeof update) {
+    throw Error(
+      "useEffect CRUD overload is not enabled in this build of React.",
+    );
+  }
   return dispatcher.useEffect(create, createDeps);
 };
 export const useId = function () {
@@ -528,12 +565,12 @@ export const useState = function (initialState) {
 export const useSyncExternalStore = function (
   subscribe,
   getSnapshot,
-  getServerSnapshot
+  getServerSnapshot,
 ) {
   return ReactSharedInternals.H.useSyncExternalStore(
     subscribe,
     getSnapshot,
-    getServerSnapshot
+    getServerSnapshot,
   );
 };
 export const useTransition = function () {

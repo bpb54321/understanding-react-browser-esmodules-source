@@ -13,8 +13,9 @@ function formatProdErrorMessage(code) {
   var url = "https://react.dev/errors/" + code;
   if (1 < arguments.length) {
     url += "?args[]=" + encodeURIComponent(arguments[1]);
-    for (var i = 2; i < arguments.length; i++)
-      {url += "&args[]=" + encodeURIComponent(arguments[i]);}
+    for (var i = 2; i < arguments.length; i++) {
+      url += "&args[]=" + encodeURIComponent(arguments[i]);
+    }
   }
   return (
     "Minified React error #" +
@@ -57,9 +58,12 @@ function createPortal$1(children, containerInfo, implementation) {
 var ReactSharedInternals =
   React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
 function getCrossOriginStringAs(as, input) {
-  if ("font" === as) {return "";}
-  if ("string" === typeof input)
-    {return "use-credentials" === input ? input : "";}
+  if ("font" === as) {
+    return "";
+  }
+  if ("string" === typeof input) {
+    return "use-credentials" === input ? input : "";
+  }
 }
 export const __DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE =
   Internals;
@@ -71,15 +75,18 @@ export const createPortal = function (children, container) {
     (1 !== container.nodeType &&
       9 !== container.nodeType &&
       11 !== container.nodeType)
-  )
-    {throw Error(formatProdErrorMessage(299));}
+  ) {
+    throw Error(formatProdErrorMessage(299));
+  }
   return createPortal$1(children, container, null, key);
 };
 export const flushSync = function (fn) {
   var previousTransition = ReactSharedInternals.T,
     previousUpdatePriority = Internals.p;
   try {
-    if (((ReactSharedInternals.T = null), (Internals.p = 2), fn)) {return fn();}
+    if (((ReactSharedInternals.T = null), (Internals.p = 2), fn)) {
+      return fn();
+    }
   } finally {
     (ReactSharedInternals.T = previousTransition),
       (Internals.p = previousUpdatePriority),
@@ -120,7 +127,7 @@ export const preinit = function (href, options) {
             crossOrigin: crossOrigin,
             integrity: integrity,
             fetchPriority: fetchPriority,
-          }
+          },
         )
       : "script" === as &&
         Internals.d.X(href, {
@@ -132,12 +139,12 @@ export const preinit = function (href, options) {
   }
 };
 export const preinitModule = function (href, options) {
-  if ("string" === typeof href)
-    {if ("object" === typeof options && null !== options) {
+  if ("string" === typeof href) {
+    if ("object" === typeof options && null !== options) {
       if (null == options.as || "script" === options.as) {
         var crossOrigin = getCrossOriginStringAs(
           options.as,
-          options.crossOrigin
+          options.crossOrigin,
         );
         Internals.d.M(href, {
           crossOrigin: crossOrigin,
@@ -146,7 +153,10 @@ export const preinitModule = function (href, options) {
           nonce: "string" === typeof options.nonce ? options.nonce : void 0,
         });
       }
-    } else {null == options && Internals.d.M(href);}}
+    } else {
+      null == options && Internals.d.M(href);
+    }
+  }
 };
 export const preload = function (href, options) {
   if (
@@ -180,8 +190,8 @@ export const preload = function (href, options) {
   }
 };
 export const preloadModule = function (href, options) {
-  if ("string" === typeof href)
-    {if (options) {
+  if ("string" === typeof href) {
+    if (options) {
       var crossOrigin = getCrossOriginStringAs(options.as, options.crossOrigin);
       Internals.d.m(href, {
         as:
@@ -192,7 +202,10 @@ export const preloadModule = function (href, options) {
         integrity:
           "string" === typeof options.integrity ? options.integrity : void 0,
       });
-    } else {Internals.d.m(href);}}
+    } else {
+      Internals.d.m(href);
+    }
+  }
 };
 export const requestFormReset = function (form) {
   Internals.d.r(form);

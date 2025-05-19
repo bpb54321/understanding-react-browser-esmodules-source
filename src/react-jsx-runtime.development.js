@@ -11,12 +11,17 @@ import * as React from "./react.development.js";
  */
 
 function getComponentNameFromType(type) {
-  if (null == type) {return null;}
-  if ("function" === typeof type)
-    {return type.$$typeof === REACT_CLIENT_REFERENCE
+  if (null == type) {
+    return null;
+  }
+  if ("function" === typeof type) {
+    return type.$$typeof === REACT_CLIENT_REFERENCE
       ? null
-      : type.displayName || type.name || null;}
-  if ("string" === typeof type) {return type;}
+      : type.displayName || type.name || null;
+  }
+  if ("string" === typeof type) {
+    return type;
+  }
   switch (type) {
     case REACT_FRAGMENT_TYPE:
       return "Fragment";
@@ -31,11 +36,11 @@ function getComponentNameFromType(type) {
     case REACT_ACTIVITY_TYPE:
       return "Activity";
   }
-  if ("object" === typeof type)
-    {switch (
+  if ("object" === typeof type) {
+    switch (
       ("number" === typeof type.tag &&
         console.error(
-          "Received an unexpected object in getComponentNameFromType(). This is likely a bug in React. Please file an issue."
+          "Received an unexpected object in getComponentNameFromType(). This is likely a bug in React. Please file an issue.",
         ),
       type.$$typeof)
     ) {
@@ -65,7 +70,8 @@ function getComponentNameFromType(type) {
         try {
           return getComponentNameFromType(type(innerType));
         } catch (x) {}
-    }}
+    }
+  }
   return null;
 }
 function testStringCoercion(value) {
@@ -90,19 +96,22 @@ function checkKeyStringCoercion(value) {
     JSCompiler_temp_const.call(
       JSCompiler_inline_result,
       "The provided key is an unsupported type %s. This value must be coerced to a string before using it here.",
-      JSCompiler_inline_result$jscomp$0
+      JSCompiler_inline_result$jscomp$0,
     );
     return testStringCoercion(value);
   }
 }
 function getTaskName(type) {
-  if (type === REACT_FRAGMENT_TYPE) {return "<>";}
+  if (type === REACT_FRAGMENT_TYPE) {
+    return "<>";
+  }
   if (
     "object" === typeof type &&
     null !== type &&
     type.$$typeof === REACT_LAZY_TYPE
-  )
-    {return "<...>";}
+  ) {
+    return "<...>";
+  }
   try {
     var name = getComponentNameFromType(type);
     return name ? "<" + name + ">" : "<...>";
@@ -120,7 +129,9 @@ function UnknownOwner() {
 function hasValidKey(config) {
   if (hasOwnProperty.call(config, "key")) {
     var getter = Object.getOwnPropertyDescriptor(config, "key").get;
-    if (getter && getter.isReactWarning) {return !1;}
+    if (getter && getter.isReactWarning) {
+      return !1;
+    }
   }
   return void 0 !== config.key;
 }
@@ -130,7 +141,7 @@ function defineKeyPropWarningGetter(props, displayName) {
       ((specialPropKeyWarningShown = !0),
       console.error(
         "%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://react.dev/link/special-props)",
-        displayName
+        displayName,
       ));
   }
   warnAboutAccessingKey.isReactWarning = !0;
@@ -144,7 +155,7 @@ function elementRefGetterWithDeprecationWarning() {
   didWarnAboutElementRef[componentName] ||
     ((didWarnAboutElementRef[componentName] = !0),
     console.error(
-      "Accessing element.ref was removed in React 19. ref is now a regular prop. It will be removed from the JSX Element type in a future release."
+      "Accessing element.ref was removed in React 19. ref is now a regular prop. It will be removed from the JSX Element type in a future release.",
     ));
   componentName = this.props.ref;
   return void 0 !== componentName ? componentName : null;
@@ -157,7 +168,7 @@ function ReactElement(
   owner,
   props,
   debugStack,
-  debugTask
+  debugTask,
 ) {
   self = props.ref;
   type = {
@@ -209,24 +220,29 @@ function jsxDEVImpl(
   source,
   self,
   debugStack,
-  debugTask
+  debugTask,
 ) {
   var children = config.children;
-  if (void 0 !== children)
-    {if (isStaticChildren)
-      {if (isArrayImpl(children)) {
+  if (void 0 !== children) {
+    if (isStaticChildren) {
+      if (isArrayImpl(children)) {
         for (
           isStaticChildren = 0;
           isStaticChildren < children.length;
           isStaticChildren++
-        )
-          {validateChildKeys(children[isStaticChildren]);}
+        ) {
+          validateChildKeys(children[isStaticChildren]);
+        }
         Object.freeze && Object.freeze(children);
-      } else
-        {console.error(
-          "React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead."
-        );}}
-    else {validateChildKeys(children);}}
+      } else {
+        console.error(
+          "React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead.",
+        );
+      }
+    } else {
+      validateChildKeys(children);
+    }
+  }
   if (hasOwnProperty.call(config, "key")) {
     children = getComponentNameFromType(type);
     var keys = Object.keys(config).filter(function (k) {
@@ -243,7 +259,7 @@ function jsxDEVImpl(
         isStaticChildren,
         children,
         keys,
-        children
+        children,
       ),
       (didWarnAboutKeySpread[children + isStaticChildren] = !0));
   }
@@ -254,15 +270,18 @@ function jsxDEVImpl(
     (checkKeyStringCoercion(config.key), (children = "" + config.key));
   if ("key" in config) {
     maybeKey = {};
-    for (var propName in config)
-      {"key" !== propName && (maybeKey[propName] = config[propName]);}
-  } else {maybeKey = config;}
+    for (var propName in config) {
+      "key" !== propName && (maybeKey[propName] = config[propName]);
+    }
+  } else {
+    maybeKey = config;
+  }
   children &&
     defineKeyPropWarningGetter(
       maybeKey,
       "function" === typeof type
         ? type.displayName || type.name || "Unknown"
-        : type
+        : type,
     );
   return ReactElement(
     type,
@@ -272,7 +291,7 @@ function jsxDEVImpl(
     getOwner(),
     maybeKey,
     debugStack,
-    debugTask
+    debugTask,
   );
 }
 function validateChildKeys(node) {
@@ -315,7 +334,7 @@ var specialPropKeyWarningShown;
 var didWarnAboutElementRef = {};
 var unknownOwnerDebugStack = React["react-stack-bottom-frame"].bind(
   React,
-  UnknownOwner
+  UnknownOwner,
 )();
 var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
 var didWarnAboutKeySpread = {};
@@ -331,7 +350,7 @@ export const jsx = function (type, config, maybeKey, source, self) {
     source,
     self,
     trackActualOwner ? Error("react-stack-top-frame") : unknownOwnerDebugStack,
-    trackActualOwner ? createTask(getTaskName(type)) : unknownOwnerDebugTask
+    trackActualOwner ? createTask(getTaskName(type)) : unknownOwnerDebugTask,
   );
 };
 export const jsxs = function (type, config, maybeKey, source, self) {
@@ -345,6 +364,6 @@ export const jsxs = function (type, config, maybeKey, source, self) {
     source,
     self,
     trackActualOwner ? Error("react-stack-top-frame") : unknownOwnerDebugStack,
-    trackActualOwner ? createTask(getTaskName(type)) : unknownOwnerDebugTask
+    trackActualOwner ? createTask(getTaskName(type)) : unknownOwnerDebugTask,
   );
 };
