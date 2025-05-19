@@ -670,7 +670,9 @@ function resolveUpdatePriority() {
     return updatePriority;
   }
   updatePriority = window.event;
-  return void 0 === updatePriority ? 32 : getEventPriority(updatePriority.type);
+  return undefined === updatePriority
+    ? 32
+    : getEventPriority(updatePriority.type);
 }
 function runWithPriority(priority, fn) {
   var previousPriority = ReactDOMSharedInternals.p;
@@ -853,7 +855,7 @@ function setValueForNamespacedAttribute(node, namespace, name, value) {
 }
 var prefix, suffix;
 function describeBuiltInComponentFrame(name) {
-  if (void 0 === prefix) {
+  if (undefined === prefix) {
     try {
       throw Error();
     } catch (x) {
@@ -876,7 +878,7 @@ function describeNativeComponentFrame(fn, construct) {
   }
   reentry = !0;
   var previousPrepareStackTrace = Error.prepareStackTrace;
-  Error.prepareStackTrace = void 0;
+  Error.prepareStackTrace = undefined;
   try {
     var RunInRootFrame = {
       DetermineComponentFrameRoot: function () {
@@ -1135,7 +1137,7 @@ function updateValueIfChanged(node) {
   return node !== lastValue ? (tracker.setValue(node), !0) : !1;
 }
 function getActiveElement(doc) {
-  doc = doc || ("undefined" !== typeof document ? document : void 0);
+  doc = doc || ("undefined" !== typeof document ? document : undefined);
   if ("undefined" === typeof doc) {
     return null;
   }
@@ -1220,7 +1222,7 @@ function initInput(
     if (
       !(
         ("submit" !== type && "reset" !== type) ||
-        (void 0 !== value && null !== value)
+        (undefined !== value && null !== value)
       )
     ) {
       return;
@@ -1681,7 +1683,7 @@ function getData() {
     startValue[startLength - end] === endValue[endLength - end];
     end++
   ) {}
-  return (fallbackText = endValue.slice(start, 1 < end ? 1 - end : void 0));
+  return (fallbackText = endValue.slice(start, 1 < end ? 1 - end : undefined));
 }
 function getEventCharCode(nativeEvent) {
   var keyCode = nativeEvent.keyCode;
@@ -1784,7 +1786,7 @@ var EventInterface = {
     button: 0,
     buttons: 0,
     relatedTarget: function (event) {
-      return void 0 === event.relatedTarget
+      return undefined === event.relatedTarget
         ? event.fromElement === event.srcElement
           ? event.toElement
           : event.fromElement
@@ -2267,7 +2269,7 @@ function getNodeForCharacterOffset(root, offset) {
         }
         node = node.parentNode;
       }
-      node = void 0;
+      node = undefined;
     }
     node = getLeafNode(node);
   }
@@ -2434,7 +2436,7 @@ var CapturedStacks = new WeakMap();
 function createCapturedValueAtFiber(value, source) {
   if ("object" === typeof value && null !== value) {
     var existing = CapturedStacks.get(value);
-    if (void 0 !== existing) {
+    if (undefined !== existing) {
       return existing;
     }
     source = {
@@ -3247,7 +3249,7 @@ function entangleAsyncAction(transition, thenable) {
     currentEntangledLane = requestTransitionLane();
     currentEntangledActionThenable = {
       status: "pending",
-      value: void 0,
+      value: undefined,
       then: function (resolve) {
         entangledListeners.push(resolve);
       },
@@ -3295,7 +3297,7 @@ function chainThenableValue(thenable, result) {
       thenableWithOverride.status = "rejected";
       thenableWithOverride.reason = error;
       for (error = 0; error < listeners.length; error++) {
-        (0, listeners[error])(void 0);
+        (0, listeners[error])(undefined);
       }
     },
   );
@@ -3339,7 +3341,7 @@ function isThenableResolved(thenable) {
 function noop$3() {}
 function trackUsedThenable(thenableState, thenable, index) {
   index = thenableState[index];
-  void 0 === index
+  undefined === index
     ? thenableState.push(thenable)
     : index !== thenable && (thenable.then(noop$3, noop$3), (thenable = index));
   switch (thenable.status) {
@@ -3595,7 +3597,7 @@ function processUpdateQueue(
                 "function" === typeof workInProgress
                   ? workInProgress.call(instance, newState, updateLane)
                   : workInProgress;
-              if (null === updateLane || void 0 === updateLane) {
+              if (null === updateLane || undefined === updateLane) {
                 break a;
               }
               newState = assign({}, newState, updateLane);
@@ -3927,7 +3929,7 @@ function useMemoCache(size) {
     (currentlyRenderingFiber.updateQueue = updateQueue));
   updateQueue.memoCache = memoCache;
   updateQueue = memoCache.data[memoCache.index];
-  if (void 0 === updateQueue) {
+  if (undefined === updateQueue) {
     for (
       updateQueue = memoCache.data[memoCache.index] = Array(size), current = 0;
       current < size;
@@ -4085,7 +4087,7 @@ function updateSyncExternalStore(subscribe, getSnapshot, getServerSnapshot) {
     hook = updateWorkInProgressHook(),
     isHydrating$jscomp$0 = isHydrating;
   if (isHydrating$jscomp$0) {
-    if (void 0 === getServerSnapshot) {
+    if (undefined === getServerSnapshot) {
       throw Error(formatProdErrorMessage(407));
     }
     getServerSnapshot = getServerSnapshot();
@@ -4476,14 +4478,14 @@ function pushSimpleEffect(tag, inst, create, createDeps) {
   return tag;
 }
 function createEffectInstance() {
-  return { destroy: void 0, resource: void 0 };
+  return { destroy: undefined, resource: undefined };
 }
 function updateRef() {
   return updateWorkInProgressHook().memoizedState;
 }
 function mountEffectImpl(fiberFlags, hookFlags, create, createDeps) {
   var hook = mountWorkInProgressHook();
-  createDeps = void 0 === createDeps ? null : createDeps;
+  createDeps = undefined === createDeps ? null : createDeps;
   currentlyRenderingFiber.flags |= fiberFlags;
   hook.memoizedState = pushSimpleEffect(
     1 | hookFlags,
@@ -4494,7 +4496,7 @@ function mountEffectImpl(fiberFlags, hookFlags, create, createDeps) {
 }
 function updateEffectImpl(fiberFlags, hookFlags, create, deps) {
   var hook = updateWorkInProgressHook();
-  deps = void 0 === deps ? null : deps;
+  deps = undefined === deps ? null : deps;
   var inst = hook.memoizedState.inst;
   null !== currentHook &&
   null !== deps &&
@@ -4528,7 +4530,7 @@ function imperativeHandleEffect(create, ref) {
       "function" === typeof refCleanup ? refCleanup() : ref(null);
     };
   }
-  if (null !== ref && void 0 !== ref) {
+  if (null !== ref && undefined !== ref) {
     return (
       (create = create()),
       (ref.current = create),
@@ -4539,13 +4541,13 @@ function imperativeHandleEffect(create, ref) {
   }
 }
 function updateImperativeHandle(ref, create, deps) {
-  deps = null !== deps && void 0 !== deps ? deps.concat([ref]) : null;
+  deps = null !== deps && undefined !== deps ? deps.concat([ref]) : null;
   updateEffectImpl(4, 4, imperativeHandleEffect.bind(null, create, ref), deps);
 }
 function mountDebugValue() {}
 function updateCallback(callback, deps) {
   var hook = updateWorkInProgressHook();
-  deps = void 0 === deps ? null : deps;
+  deps = undefined === deps ? null : deps;
   var prevState = hook.memoizedState;
   if (null !== deps && areHookInputsEqual(deps, prevState[1])) {
     return prevState[0];
@@ -4555,7 +4557,7 @@ function updateCallback(callback, deps) {
 }
 function updateMemo(nextCreate, deps) {
   var hook = updateWorkInProgressHook();
-  deps = void 0 === deps ? null : deps;
+  deps = undefined === deps ? null : deps;
   var prevState = hook.memoizedState;
   if (null !== deps && areHookInputsEqual(deps, prevState[1])) {
     return prevState[0];
@@ -4573,7 +4575,7 @@ function updateMemo(nextCreate, deps) {
   return prevState;
 }
 function mountDeferredValueImpl(hook, value, initialValue) {
-  if (void 0 === initialValue || 0 !== (renderLanes & 1073741824)) {
+  if (undefined === initialValue || 0 !== (renderLanes & 1073741824)) {
     return (hook.memoizedState = value);
   }
   hook.memoizedState = initialValue;
@@ -4882,14 +4884,14 @@ var ContextOnlyDispatcher = {
     useCallback: function (callback, deps) {
       mountWorkInProgressHook().memoizedState = [
         callback,
-        void 0 === deps ? null : deps,
+        undefined === deps ? null : deps,
       ];
       return callback;
     },
     useContext: readContext,
     useEffect: mountEffect,
     useImperativeHandle: function (ref, create, deps) {
-      deps = null !== deps && void 0 !== deps ? deps.concat([ref]) : null;
+      deps = null !== deps && undefined !== deps ? deps.concat([ref]) : null;
       mountEffectImpl(
         4194308,
         4,
@@ -4905,7 +4907,7 @@ var ContextOnlyDispatcher = {
     },
     useMemo: function (nextCreate, deps) {
       var hook = mountWorkInProgressHook();
-      deps = void 0 === deps ? null : deps;
+      deps = undefined === deps ? null : deps;
       var nextValue = nextCreate();
       if (shouldDoubleInvokeUserFnsInHooksDEV) {
         setIsStrictModeForDevtools(!0);
@@ -4920,7 +4922,7 @@ var ContextOnlyDispatcher = {
     },
     useReducer: function (reducer, initialArg, init) {
       var hook = mountWorkInProgressHook();
-      if (void 0 !== init) {
+      if (undefined !== init) {
         var initialState = init(initialArg);
         if (shouldDoubleInvokeUserFnsInHooksDEV) {
           setIsStrictModeForDevtools(!0);
@@ -4982,7 +4984,7 @@ var ContextOnlyDispatcher = {
       var fiber = currentlyRenderingFiber,
         hook = mountWorkInProgressHook();
       if (isHydrating) {
-        if (void 0 === getServerSnapshot) {
+        if (undefined === getServerSnapshot) {
           throw Error(formatProdErrorMessage(407));
         }
         getServerSnapshot = getServerSnapshot();
@@ -5183,7 +5185,7 @@ function unwrapThenable(thenable) {
 }
 function coerceRef(workInProgress, element) {
   element = element.props.ref;
-  workInProgress.ref = void 0 !== element ? element : null;
+  workInProgress.ref = undefined !== element ? element : null;
 }
 function throwOnInvalidObjectType(returnFiber, newChild) {
   if (newChild.$$typeof === REACT_LEGACY_ELEMENT_TYPE) {
@@ -5976,7 +5978,10 @@ function findFirstSuspended(row) {
       ) {
         return node;
       }
-    } else if (19 === node.tag && void 0 !== node.memoizedProps.revealOrder) {
+    } else if (
+      19 === node.tag &&
+      undefined !== node.memoizedProps.revealOrder
+    ) {
       if (0 !== (node.flags & 128)) {
         return node;
       }
@@ -6008,7 +6013,7 @@ function applyDerivedStateFromProps(
   ctor = workInProgress.memoizedState;
   getDerivedStateFromProps = getDerivedStateFromProps(nextProps, ctor);
   getDerivedStateFromProps =
-    null === getDerivedStateFromProps || void 0 === getDerivedStateFromProps
+    null === getDerivedStateFromProps || undefined === getDerivedStateFromProps
       ? ctor
       : assign({}, ctor, getDerivedStateFromProps);
   workInProgress.memoizedState = getDerivedStateFromProps;
@@ -6021,7 +6026,7 @@ var classComponentUpdater = {
     var lane = requestUpdateLane(),
       update = createUpdate(lane);
     update.payload = payload;
-    void 0 !== callback && null !== callback && (update.callback = callback);
+    undefined !== callback && null !== callback && (update.callback = callback);
     payload = enqueueUpdate(inst, update, lane);
     null !== payload &&
       (scheduleUpdateOnFiber(payload, inst, lane),
@@ -6033,7 +6038,7 @@ var classComponentUpdater = {
       update = createUpdate(lane);
     update.tag = 1;
     update.payload = payload;
-    void 0 !== callback && null !== callback && (update.callback = callback);
+    undefined !== callback && null !== callback && (update.callback = callback);
     payload = enqueueUpdate(inst, update, lane);
     null !== payload &&
       (scheduleUpdateOnFiber(payload, inst, lane),
@@ -6044,7 +6049,7 @@ var classComponentUpdater = {
     var lane = requestUpdateLane(),
       update = createUpdate(lane);
     update.tag = 2;
-    void 0 !== callback && null !== callback && (update.callback = callback);
+    undefined !== callback && null !== callback && (update.callback = callback);
     callback = enqueueUpdate(inst, update, lane);
     null !== callback &&
       (scheduleUpdateOnFiber(callback, inst, lane),
@@ -6092,7 +6097,7 @@ function resolveClassComponentProps(Component, baseProps) {
   if ((Component = Component.defaultProps)) {
     newProps === baseProps && (newProps = assign({}, newProps));
     for (var propName$73 in Component) {
-      void 0 === newProps[propName$73] &&
+      undefined === newProps[propName$73] &&
         (newProps[propName$73] = Component[propName$73]);
     }
   }
@@ -6420,7 +6425,7 @@ function updateMemoComponent(
     if (
       "function" === typeof type &&
       !shouldConstruct(type) &&
-      void 0 === type.defaultProps &&
+      undefined === type.defaultProps &&
       null === Component.compare
     ) {
       return (
@@ -6608,7 +6613,7 @@ function updateFunctionComponent(
     workInProgress,
     Component,
     nextProps,
-    void 0,
+    undefined,
     renderLanes,
   );
   nextProps = checkDidRenderIdHook();
@@ -6668,7 +6673,9 @@ function updateClassComponent(
       (context = readContext(contextType));
     context = new Component(nextProps, context);
     workInProgress.memoizedState =
-      null !== context.state && void 0 !== context.state ? context.state : null;
+      null !== context.state && undefined !== context.state
+        ? context.state
+        : null;
     context.updater = classComponentUpdater;
     workInProgress.stateNode = context;
     context._reactInternals = workInProgress;
@@ -7409,7 +7416,7 @@ function updateSuspenseListComponent(current, workInProgress, renderLanes) {
       );
       break;
     case "together":
-      initSuspenseListRenderState(workInProgress, !1, null, null, void 0);
+      initSuspenseListRenderState(workInProgress, !1, null, null, undefined);
       break;
     default:
       workInProgress.memoizedState = null;
@@ -7606,7 +7613,7 @@ function beginWork(current, workInProgress, renderLanes) {
                 renderLanes,
               )));
         } else {
-          if (void 0 !== lazyComponent && null !== lazyComponent) {
+          if (undefined !== lazyComponent && null !== lazyComponent) {
             if (
               ((init = lazyComponent.$$typeof), init === REACT_FORWARD_REF_TYPE)
             ) {
@@ -8731,7 +8738,7 @@ function commitHookEffectListMount(flags, finishedWork) {
       updateQueue = firstEffect;
       do {
         if ((updateQueue.tag & flags) === flags) {
-          lastEffect = void 0;
+          lastEffect = undefined;
           var create = updateQueue.create,
             inst = updateQueue.inst;
           lastEffect = create();
@@ -8759,8 +8766,8 @@ function commitHookEffectListUnmount(
         if ((updateQueue.tag & flags) === flags) {
           var inst = updateQueue.inst,
             destroy = inst.destroy;
-          if (void 0 !== destroy) {
-            inst.destroy = void 0;
+          if (undefined !== destroy) {
+            inst.destroy = undefined;
             lastEffect = finishedWork;
             var nearestMountedAncestor = nearestMountedAncestor$jscomp$0,
               destroy_ = destroy;
@@ -8947,7 +8954,7 @@ function insertOrAppendPlacementNodeIntoContainer(node, before, parent) {
                 : parent),
           before.appendChild(node),
           (parent = parent._reactRootContainer),
-          (null !== parent && void 0 !== parent) ||
+          (null !== parent && undefined !== parent) ||
             null !== before.onclick ||
             (before.onclick = noop$1));
   } else if (
@@ -9114,7 +9121,7 @@ function commitBeforeMutationEffects(root, firstChild) {
             break;
           case 1:
             if (0 !== (root & 1024) && null !== focusNode) {
-              root = void 0;
+              root = undefined;
               JSCompiler_temp = firstChild;
               anchorOffset = focusNode.memoizedProps;
               focusNode = focusNode.memoizedState;
@@ -9927,7 +9934,7 @@ function commitMutationEffectsOnFiber(finishedWork, root) {
                   i = wasHidden.stateNode;
                   var styleProp = wasHidden.memoizedProps.style,
                     display =
-                      void 0 !== styleProp &&
+                      undefined !== styleProp &&
                       null !== styleProp &&
                       styleProp.hasOwnProperty("display")
                         ? styleProp.display
@@ -10714,7 +10721,7 @@ var DefaultAsyncDispatcher = {
     getCacheForType: function (resourceType) {
       var cache = readContext(CacheContext),
         cacheForType = cache.data.get(resourceType);
-      void 0 === cacheForType &&
+      undefined === cacheForType &&
         ((cacheForType = resourceType()),
         cache.data.set(resourceType, cacheForType));
       return cacheForType;
@@ -11425,7 +11432,7 @@ function replaySuspendedUnitOfWork(unitOfWork) {
         next,
         next.pendingProps,
         next.type,
-        void 0,
+        undefined,
         workInProgressRootRenderLanes,
       );
       break;
@@ -11674,7 +11681,7 @@ function flushMutationEffects() {
           ) {
             var start = priorSelectionRange.start,
               end = priorSelectionRange.end;
-            void 0 === end && (end = start);
+            undefined === end && (end = start);
             if ("selectionStart" in priorFocusedElem) {
               (priorFocusedElem.selectionStart = start),
                 (priorFocusedElem.selectionEnd = Math.min(
@@ -11689,7 +11696,7 @@ function flushMutationEffects() {
                   length = priorFocusedElem.textContent.length,
                   start$jscomp$0 = Math.min(priorSelectionRange.start, length),
                   end$jscomp$0 =
-                    void 0 === priorSelectionRange.end
+                    undefined === priorSelectionRange.end
                       ? start$jscomp$0
                       : Math.min(priorSelectionRange.end, length);
                 !selection.extend &&
@@ -11810,7 +11817,7 @@ function flushSpawnedWork() {
         injectedHook.onCommitFiberRoot(
           rendererID,
           finishedWork,
-          void 0,
+          undefined,
           128 === (finishedWork.current.flags & 128),
         );
       } catch (err) {}
@@ -11963,7 +11970,7 @@ function attachPingListener(root, wakeable, lanes) {
     pingCache.set(wakeable, threadIDs);
   } else {
     (threadIDs = pingCache.get(wakeable)),
-      void 0 === threadIDs &&
+      undefined === threadIDs &&
         ((threadIDs = new Set()), pingCache.set(wakeable, threadIDs));
   }
   threadIDs.has(lanes) ||
@@ -12414,7 +12421,7 @@ function processDispatchQueue(dispatchQueue, eventSystemFlags) {
       event = _dispatchQueue$i.event;
     _dispatchQueue$i = _dispatchQueue$i.listeners;
     a: {
-      var previousInstance = void 0;
+      var previousInstance = undefined;
       if (eventSystemFlags) {
         for (
           var i$jscomp$0 = _dispatchQueue$i.length - 1;
@@ -12467,7 +12474,7 @@ function processDispatchQueue(dispatchQueue, eventSystemFlags) {
 }
 function listenToNonDelegatedEvent(domEventName, targetElement) {
   var JSCompiler_inline_result = targetElement[internalEventHandlersKey];
-  void 0 === JSCompiler_inline_result &&
+  undefined === JSCompiler_inline_result &&
     (JSCompiler_inline_result = targetElement[internalEventHandlersKey] =
       new Set());
   var listenerSetKey = domEventName + "__bubble";
@@ -12527,20 +12534,20 @@ function addTrappedEventListener(
     eventSystemFlags,
     targetContainer,
   );
-  listenerWrapper = void 0;
+  listenerWrapper = undefined;
   !passiveBrowserEventsSupported ||
     ("touchstart" !== domEventName &&
       "touchmove" !== domEventName &&
       "wheel" !== domEventName) ||
     (listenerWrapper = !0);
   isCapturePhaseListener
-    ? void 0 !== listenerWrapper
+    ? undefined !== listenerWrapper
       ? targetContainer.addEventListener(domEventName, eventSystemFlags, {
           capture: !0,
           passive: listenerWrapper,
         })
       : targetContainer.addEventListener(domEventName, eventSystemFlags, !0)
-    : void 0 !== listenerWrapper
+    : undefined !== listenerWrapper
       ? targetContainer.addEventListener(domEventName, eventSystemFlags, {
           passive: listenerWrapper,
         })
@@ -12608,7 +12615,7 @@ function dispatchEventForPluginEventSystem(
       dispatchQueue = [];
     a: {
       var reactName = topLevelEventsToReactNames.get(domEventName);
-      if (void 0 !== reactName) {
+      if (undefined !== reactName) {
         var SyntheticEventCtor = SyntheticEvent,
           reactEventType = domEventName;
         switch (domEventName) {
@@ -12981,7 +12988,7 @@ function dispatchEventForPluginEventSystem(
               eventType = "onCompositionUpdate";
               break b;
           }
-          eventType = void 0;
+          eventType = undefined;
         }
       } else {
         isComposing
@@ -13514,7 +13521,7 @@ function setPropOnCustomElement(domElement, tag, key, value, props, prevValue) {
             "o" === key[0] &&
             "n" === key[1] &&
             ((props = key.endsWith("Capture")),
-            (tag = key.slice(2, props ? key.length - 7 : void 0)),
+            (tag = key.slice(2, props ? key.length - 7 : undefined)),
             (prevValue = domElement[internalPropsKey] || null),
             (prevValue = null != prevValue ? prevValue[key] : null),
             "function" === typeof prevValue &&
@@ -13770,14 +13777,14 @@ function setInitialProperties(domElement, tag, props) {
         for (propValue$188 in props) {
           props.hasOwnProperty(propValue$188) &&
             ((hasSrc = props[propValue$188]),
-            void 0 !== hasSrc &&
+            undefined !== hasSrc &&
               setPropOnCustomElement(
                 domElement,
                 tag,
                 propValue$188,
                 hasSrc,
                 props,
-                void 0,
+                undefined,
               ));
         }
         return;
@@ -14099,13 +14106,13 @@ function updateProperties(domElement, tag, lastProps, nextProps) {
         for (var propKey$231 in lastProps) {
           (propKey$205 = lastProps[propKey$231]),
             lastProps.hasOwnProperty(propKey$231) &&
-              void 0 !== propKey$205 &&
+              undefined !== propKey$205 &&
               !nextProps.hasOwnProperty(propKey$231) &&
               setPropOnCustomElement(
                 domElement,
                 tag,
                 propKey$231,
-                void 0,
+                undefined,
                 nextProps,
                 propKey$205,
               );
@@ -14115,7 +14122,7 @@ function updateProperties(domElement, tag, lastProps, nextProps) {
             (propKey = lastProps[defaultChecked]),
             !nextProps.hasOwnProperty(defaultChecked) ||
               propKey$205 === propKey ||
-              (void 0 === propKey$205 && void 0 === propKey) ||
+              (undefined === propKey$205 && undefined === propKey) ||
               setPropOnCustomElement(
                 domElement,
                 tag,
@@ -14201,9 +14208,9 @@ function shouldAttemptEagerTransition() {
   currentPopstateTransitionEvent = null;
   return !1;
 }
-var scheduleTimeout = "function" === typeof setTimeout ? setTimeout : void 0,
-  cancelTimeout = "function" === typeof clearTimeout ? clearTimeout : void 0,
-  localPromise = "function" === typeof Promise ? Promise : void 0,
+var scheduleTimeout = "function" === typeof setTimeout ? setTimeout : undefined,
+  cancelTimeout = "function" === typeof clearTimeout ? clearTimeout : undefined,
+  localPromise = "function" === typeof Promise ? Promise : undefined,
   scheduleMicrotask =
     "function" === typeof queueMicrotask
       ? queueMicrotask
@@ -14600,7 +14607,7 @@ function preload(href, as, options) {
         {
           rel: "preload",
           href:
-            "image" === as && options && options.imageSrcSet ? void 0 : href,
+            "image" === as && options && options.imageSrcSet ? undefined : href,
           as: as,
         },
         options,
@@ -15399,7 +15406,7 @@ function updateContainerImpl(
     : (container.pendingContext = parentComponent);
   container = createUpdate(lane);
   container.payload = { element: element };
-  callback = void 0 === callback ? null : callback;
+  callback = undefined === callback ? null : callback;
   null !== callback && (container.callback = callback);
   element = enqueueUpdate(rootFiber, container, lane);
   null !== element &&
@@ -16064,7 +16071,7 @@ if ("19.1.0" !== isomorphicReactPackageVersion$jscomp$inline_1785) {
 }
 ReactDOMSharedInternals.findDOMNode = function (componentOrElement) {
   var fiber = componentOrElement._reactInternals;
-  if (void 0 === fiber) {
+  if (undefined === fiber) {
     if ("function" === typeof componentOrElement.render) {
       throw Error(formatProdErrorMessage(188));
     }
@@ -16112,16 +16119,17 @@ export const createRoot = function (container, options) {
     onRecoverableError = defaultOnRecoverableError,
     transitionCallbacks = null;
   null !== options &&
-    void 0 !== options &&
+    undefined !== options &&
     (!0 === options.unstable_strictMode && (isStrictMode = !0),
-    void 0 !== options.identifierPrefix &&
+    undefined !== options.identifierPrefix &&
       (identifierPrefix = options.identifierPrefix),
-    void 0 !== options.onUncaughtError &&
+    undefined !== options.onUncaughtError &&
       (onUncaughtError = options.onUncaughtError),
-    void 0 !== options.onCaughtError && (onCaughtError = options.onCaughtError),
-    void 0 !== options.onRecoverableError &&
+    undefined !== options.onCaughtError &&
+      (onCaughtError = options.onCaughtError),
+    undefined !== options.onRecoverableError &&
       (onRecoverableError = options.onRecoverableError),
-    void 0 !== options.unstable_transitionCallbacks &&
+    undefined !== options.unstable_transitionCallbacks &&
       (transitionCallbacks = options.unstable_transitionCallbacks));
   options = createFiberRoot(
     container,
@@ -16153,18 +16161,19 @@ export const hydrateRoot = function (container, initialChildren, options) {
     transitionCallbacks = null,
     formState = null;
   null !== options &&
-    void 0 !== options &&
+    undefined !== options &&
     (!0 === options.unstable_strictMode && (isStrictMode = !0),
-    void 0 !== options.identifierPrefix &&
+    undefined !== options.identifierPrefix &&
       (identifierPrefix = options.identifierPrefix),
-    void 0 !== options.onUncaughtError &&
+    undefined !== options.onUncaughtError &&
       (onUncaughtError = options.onUncaughtError),
-    void 0 !== options.onCaughtError && (onCaughtError = options.onCaughtError),
-    void 0 !== options.onRecoverableError &&
+    undefined !== options.onCaughtError &&
+      (onCaughtError = options.onCaughtError),
+    undefined !== options.onRecoverableError &&
       (onRecoverableError = options.onRecoverableError),
-    void 0 !== options.unstable_transitionCallbacks &&
+    undefined !== options.unstable_transitionCallbacks &&
       (transitionCallbacks = options.unstable_transitionCallbacks),
-    void 0 !== options.formState && (formState = options.formState));
+    undefined !== options.formState && (formState = options.formState));
   initialChildren = createFiberRoot(
     container,
     1,

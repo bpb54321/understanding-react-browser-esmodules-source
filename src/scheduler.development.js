@@ -75,7 +75,7 @@ function performWorkUntilDeadline() {
             (currentPriorityLevel = previousPriorityLevel),
             (isPerformingWork = !1);
         }
-        hasMoreWork = void 0;
+        hasMoreWork = undefined;
       }
     } finally {
       hasMoreWork
@@ -179,7 +179,7 @@ function requestHostTimeout(callback, ms) {
   "function" ===
     typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart &&
   __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-export let unstable_now = void 0;
+export let unstable_now = undefined;
 if ("object" === typeof performance && "function" === typeof performance.now) {
   var localPerformance = performance;
   unstable_now = function () {

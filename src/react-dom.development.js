@@ -16,7 +16,7 @@ function testStringCoercion(value) {
 }
 function createPortal$1(children, containerInfo, implementation) {
   var key =
-    3 < arguments.length && void 0 !== arguments[3] ? arguments[3] : null;
+    3 < arguments.length && undefined !== arguments[3] ? arguments[3] : null;
   try {
     testStringCoercion(key);
     var JSCompiler_inline_result = !1;
@@ -52,7 +52,7 @@ function getCrossOriginStringAs(as, input) {
 function getValueDescriptorExpectingObjectForWarning(thing) {
   return null === thing
     ? "`null`"
-    : void 0 === thing
+    : undefined === thing
       ? "`undefined`"
       : "" === thing
         ? "an empty string"
@@ -61,7 +61,7 @@ function getValueDescriptorExpectingObjectForWarning(thing) {
 function getValueDescriptorExpectingEnumForWarning(thing) {
   return null === thing
     ? "`null`"
-    : void 0 === thing
+    : undefined === thing
       ? "`undefined`"
       : "" === thing
         ? "an empty string"
@@ -105,7 +105,7 @@ export const __DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE =
   Internals;
 export const createPortal = function (children, container) {
   var key =
-    2 < arguments.length && void 0 !== arguments[2] ? arguments[2] : null;
+    2 < arguments.length && undefined !== arguments[2] ? arguments[2] : null;
   if (
     !container ||
     (1 !== container.nodeType &&
@@ -157,7 +157,7 @@ export const preconnect = function (href, options) {
             ? "use-credentials" === options
               ? options
               : ""
-            : void 0))
+            : undefined))
       : (options = null),
     Internals.d.C(href, options));
 };
@@ -202,15 +202,17 @@ export const preinit = function (href, options) {
     var as = options.as,
       crossOrigin = getCrossOriginStringAs(as, options.crossOrigin),
       integrity =
-        "string" === typeof options.integrity ? options.integrity : void 0,
+        "string" === typeof options.integrity ? options.integrity : undefined,
       fetchPriority =
         "string" === typeof options.fetchPriority
           ? options.fetchPriority
-          : void 0;
+          : undefined;
     "style" === as
       ? Internals.d.S(
           href,
-          "string" === typeof options.precedence ? options.precedence : void 0,
+          "string" === typeof options.precedence
+            ? options.precedence
+            : undefined,
           {
             crossOrigin: crossOrigin,
             integrity: integrity,
@@ -222,7 +224,7 @@ export const preinit = function (href, options) {
           crossOrigin: crossOrigin,
           integrity: integrity,
           fetchPriority: fetchPriority,
-          nonce: "string" === typeof options.nonce ? options.nonce : void 0,
+          nonce: "string" === typeof options.nonce ? options.nonce : undefined,
         });
   }
 };
@@ -233,7 +235,7 @@ export const preinitModule = function (href, options) {
       " The `href` argument encountered was " +
       getValueDescriptorExpectingObjectForWarning(href) +
       ".");
-  void 0 !== options && "object" !== typeof options
+  undefined !== options && "object" !== typeof options
     ? (encountered +=
         " The `options` argument encountered was " +
         getValueDescriptorExpectingObjectForWarning(options) +
@@ -276,8 +278,9 @@ export const preinitModule = function (href, options) {
             integrity:
               "string" === typeof options.integrity
                 ? options.integrity
-                : void 0,
-            nonce: "string" === typeof options.nonce ? options.nonce : void 0,
+                : undefined,
+            nonce:
+              "string" === typeof options.nonce ? options.nonce : undefined,
           });
       }
     } else {
@@ -318,22 +321,24 @@ export const preload = function (href, options) {
     Internals.d.L(href, encountered, {
       crossOrigin: crossOrigin,
       integrity:
-        "string" === typeof options.integrity ? options.integrity : void 0,
-      nonce: "string" === typeof options.nonce ? options.nonce : void 0,
-      type: "string" === typeof options.type ? options.type : void 0,
+        "string" === typeof options.integrity ? options.integrity : undefined,
+      nonce: "string" === typeof options.nonce ? options.nonce : undefined,
+      type: "string" === typeof options.type ? options.type : undefined,
       fetchPriority:
         "string" === typeof options.fetchPriority
           ? options.fetchPriority
-          : void 0,
+          : undefined,
       referrerPolicy:
         "string" === typeof options.referrerPolicy
           ? options.referrerPolicy
-          : void 0,
+          : undefined,
       imageSrcSet:
-        "string" === typeof options.imageSrcSet ? options.imageSrcSet : void 0,
+        "string" === typeof options.imageSrcSet
+          ? options.imageSrcSet
+          : undefined,
       imageSizes:
-        "string" === typeof options.imageSizes ? options.imageSizes : void 0,
-      media: "string" === typeof options.media ? options.media : void 0,
+        "string" === typeof options.imageSizes ? options.imageSizes : undefined,
+      media: "string" === typeof options.media ? options.media : undefined,
     });
   }
 };
@@ -344,7 +349,7 @@ export const preloadModule = function (href, options) {
       " The `href` argument encountered was " +
       getValueDescriptorExpectingObjectForWarning(href) +
       ".");
-  void 0 !== options && "object" !== typeof options
+  undefined !== options && "object" !== typeof options
     ? (encountered +=
         " The `options` argument encountered was " +
         getValueDescriptorExpectingObjectForWarning(options) +
@@ -371,10 +376,12 @@ export const preloadModule = function (href, options) {
           as:
             "string" === typeof options.as && "script" !== options.as
               ? options.as
-              : void 0,
+              : undefined,
           crossOrigin: encountered,
           integrity:
-            "string" === typeof options.integrity ? options.integrity : void 0,
+            "string" === typeof options.integrity
+              ? options.integrity
+              : undefined,
         }))
       : Internals.d.m(href));
 };

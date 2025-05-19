@@ -179,7 +179,7 @@ function hasValidKey(config) {
       return !1;
     }
   }
-  return void 0 !== config.key;
+  return undefined !== config.key;
 }
 function defineKeyPropWarningGetter(props, displayName) {
   function warnAboutAccessingKey() {
@@ -204,7 +204,7 @@ function elementRefGetterWithDeprecationWarning() {
       "Accessing element.ref was removed in React 19. ref is now a regular prop. It will be removed from the JSX Element type in a future release.",
     ));
   componentName = this.props.ref;
-  return void 0 !== componentName ? componentName : null;
+  return undefined !== componentName ? componentName : null;
 }
 function ReactElement(
   type,
@@ -224,7 +224,7 @@ function ReactElement(
     props: props,
     _owner: owner,
   };
-  null !== (void 0 !== self ? self : null)
+  null !== (undefined !== self ? self : null)
     ? Object.defineProperty(type, "ref", {
         enumerable: !1,
         get: elementRefGetterWithDeprecationWarning,
@@ -262,8 +262,8 @@ function cloneAndReplaceKey(oldElement, newKey) {
   newKey = ReactElement(
     oldElement.type,
     newKey,
-    void 0,
-    void 0,
+    undefined,
+    undefined,
     oldElement._owner,
     oldElement.props,
     oldElement._debugStack,
@@ -492,7 +492,7 @@ function lazyInitializer(payload) {
   if (1 === payload._status) {
     return (
       (ctor = payload._result),
-      void 0 === ctor &&
+      undefined === ctor &&
         console.error(
           "lazy: Expected the result of a dynamic import() call. Instead received: %s\n\nYour code should look like: \n  const MyComponent = lazy(() => import('./MyComponent'))\n\nDid you accidentally put curly braces around the import?",
           ctor,
@@ -534,7 +534,7 @@ function enqueueTask(task) {
             ));
         var channel = new MessageChannel();
         channel.port1.onmessage = callback;
-        channel.port2.postMessage(void 0);
+        channel.port2.postMessage(undefined);
       };
     }
   }
@@ -925,7 +925,7 @@ export const captureOwnerStack = function () {
   return null === getCurrentStack ? null : getCurrentStack();
 };
 export const cloneElement = function (element, config, children) {
-  if (null === element || void 0 === element) {
+  if (null === element || undefined === element) {
     throw Error(
       "The argument must be a React element, but you passed " + element + ".",
     );
@@ -947,7 +947,7 @@ export const cloneElement = function (element, config, children) {
         JSCompiler_inline_result = !1;
         break a;
       }
-      JSCompiler_inline_result = void 0 !== config.ref;
+      JSCompiler_inline_result = undefined !== config.ref;
     }
     JSCompiler_inline_result && (owner = getOwner());
     hasValidKey(config) &&
@@ -957,7 +957,7 @@ export const cloneElement = function (element, config, children) {
         "key" === propName ||
         "__self" === propName ||
         "__source" === propName ||
-        ("ref" === propName && void 0 === config.ref) ||
+        ("ref" === propName && undefined === config.ref) ||
         (props[propName] = config[propName]);
     }
   }
@@ -974,8 +974,8 @@ export const cloneElement = function (element, config, children) {
   props = ReactElement(
     element.type,
     key,
-    void 0,
-    void 0,
+    undefined,
+    undefined,
     owner,
     props,
     element._debugStack,
@@ -1046,7 +1046,7 @@ export const createElement = function (type, config, children) {
   }
   if (type && type.defaultProps) {
     for (propName in ((childrenLength = type.defaultProps), childrenLength)) {
-      void 0 === i[propName] && (i[propName] = childrenLength[propName]);
+      undefined === i[propName] && (i[propName] = childrenLength[propName]);
     }
   }
   node &&
@@ -1060,8 +1060,8 @@ export const createElement = function (type, config, children) {
   return ReactElement(
     type,
     node,
-    void 0,
-    void 0,
+    undefined,
+    undefined,
     getOwner(),
     i,
     propName ? Error("react-stack-top-frame") : unknownOwnerDebugStack,
@@ -1130,7 +1130,7 @@ export const memo = function (type, compare) {
   compare = {
     $$typeof: REACT_MEMO_TYPE,
     type: type,
-    compare: void 0 === compare ? null : compare,
+    compare: undefined === compare ? null : compare,
   };
   var ownName;
   Object.defineProperty(compare, "displayName", {

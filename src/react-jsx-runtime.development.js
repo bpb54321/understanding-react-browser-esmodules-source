@@ -133,7 +133,7 @@ function hasValidKey(config) {
       return !1;
     }
   }
-  return void 0 !== config.key;
+  return undefined !== config.key;
 }
 function defineKeyPropWarningGetter(props, displayName) {
   function warnAboutAccessingKey() {
@@ -158,7 +158,7 @@ function elementRefGetterWithDeprecationWarning() {
       "Accessing element.ref was removed in React 19. ref is now a regular prop. It will be removed from the JSX Element type in a future release.",
     ));
   componentName = this.props.ref;
-  return void 0 !== componentName ? componentName : null;
+  return undefined !== componentName ? componentName : null;
 }
 function ReactElement(
   type,
@@ -178,7 +178,7 @@ function ReactElement(
     props: props,
     _owner: owner,
   };
-  null !== (void 0 !== self ? self : null)
+  null !== (undefined !== self ? self : null)
     ? Object.defineProperty(type, "ref", {
         enumerable: !1,
         get: elementRefGetterWithDeprecationWarning,
@@ -223,7 +223,7 @@ function jsxDEVImpl(
   debugTask,
 ) {
   var children = config.children;
-  if (void 0 !== children) {
+  if (undefined !== children) {
     if (isStaticChildren) {
       if (isArrayImpl(children)) {
         for (
@@ -264,7 +264,7 @@ function jsxDEVImpl(
       (didWarnAboutKeySpread[children + isStaticChildren] = !0));
   }
   children = null;
-  void 0 !== maybeKey &&
+  undefined !== maybeKey &&
     (checkKeyStringCoercion(maybeKey), (children = "" + maybeKey));
   hasValidKey(config) &&
     (checkKeyStringCoercion(config.key), (children = "" + config.key));

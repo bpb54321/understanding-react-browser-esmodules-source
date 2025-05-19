@@ -189,7 +189,7 @@ function performWorkUntilDeadline() {
             (currentPriorityLevel = previousPriorityLevel),
             (isPerformingWork = !1);
         }
-        hasMoreWork = void 0;
+        hasMoreWork = undefined;
       }
     } finally {
       hasMoreWork
